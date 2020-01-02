@@ -8,6 +8,10 @@ namespace myrestapi.Services
     public interface IBookService
     {
         Task<IEnumerable<Book>> ListAsync();
-        Task<SaveBookResponse> SaveAsync(Book book);
+        Task<BookResponse> DeleteAsync(long id);
+        Task<BookResponse> AddAsync(Book book);
+
+        Task<Book> GetAsync(long id);
+
     }
 }
