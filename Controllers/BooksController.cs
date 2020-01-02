@@ -18,6 +18,14 @@ namespace myrestapi.Controllers
             _bookService = bookService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<Book> GetAsync(int id)
+        {
+            Console.WriteLine("Get "+id);
+            var books = await _bookService.GetAsync(id);
+            return books;
+        }
+
         [HttpGet]
         public async Task<IEnumerable<Book>> GetAllAsync()
         {
@@ -34,8 +42,18 @@ namespace myrestapi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.ValidationState);
 
-            var result = await _bookService.SaveAsync(book);
+            var result = await _bookService.AddAsync(book);
 
+            if (!result.Success)
+                return BadRequest(result.Message);
+            return Ok(result.Book);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            Console.WriteLine("Delete " + id);
+            var result = await _bookService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
             return Ok(result.Book);
