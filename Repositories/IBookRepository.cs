@@ -7,6 +7,8 @@ namespace myrestapi.Repositories
     public interface IBookRepository
     {
         Task<IEnumerable<Book>> ListAsync();
-        Task AddAsync(Book book);
+        Task<Book>  AddAsync(Book book);
+        Task<Book> GetAsync(long id);
+        Task DeleteAsync(Book book);
     }
 }
