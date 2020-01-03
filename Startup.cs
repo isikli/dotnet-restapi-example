@@ -26,9 +26,8 @@ namespace myrestapi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
 
-            services.AddDbContext<AppDbContext>(options => {
-                options.UseInMemoryDatabase("rest-api-in-memory");
-            });
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IBookService, BookService>();
